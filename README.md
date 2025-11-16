@@ -1,4 +1,4 @@
-# SlincSpace Start  
+# SlinkySpace Start  
 ### *Multi-Sensor Demonstration Platform – ESP32 + BMP280 + SS49E + Battery Monitor*
 
 ---
