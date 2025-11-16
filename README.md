@@ -5,7 +5,7 @@
 
 ## 🚀 Projekt áttekintése
 
-A **SlincSpace Start** egy oktatási és fejlesztési célú, moduláris szenzorplatform  
+A **SlinkySpace Start** egy oktatási és fejlesztési célú, moduláris szenzorplatform  
 **Wemos Lolin32 Lite (ESP32)** mikrokontrolleren.
 
 A projekt célja:
