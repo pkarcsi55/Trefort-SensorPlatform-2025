@@ -1,18 +1,29 @@
-## 📡 CanSat 2026 – ESP32 GPIO bekötési táblázat
+# CANSAT 2026 – ESP32 GPIO Pin Mapping
 
-Az alábbi táblázat összefoglalja a Wemos Lolin32 Lite mikrovezérlőre kapcsolt modulokat és azok GPIO-kiosztását.
+## Sensors and Peripherals
 
-| Modul / Funkció          | Modul láb | ESP32 GPIO         | Megjegyzés                                 |
-|--------------------------|-----------|---------------------|---------------------------------------------|
-| **BMP280 (I²C)**         | SDA       | **23**              | `Wire.begin(23, 19)` – SDA                  |
-|                          | SCL       | **19**              | `Wire.begin(23, 19)` – SCL                  |
-| **Hall-szenzor (SS49E)** | VOUT      | **34** vagy **36**  | csak analóg bemenet; ADC1 csatorna          |
-| **HX711 – Erőmérő**      | DT (DATA) | **4**               | stabil, zajtűrő                              |
-|                          | CLK (SCK) | **5**               | biztonságos, gyors                           |
-| **MicroSD (SPI)**        | CS        | **22**              | tetszőleges CS; ajánlott                     |
-|                          | MOSI      | **13**              | alternatív MOSI                              |
-|                          | MISO      | **27**              | alternatív MISO                              |
-|                          | SCK       | **14**              | alternatív SPI órajel                        |
-| **Bekapcsoló kapcsoló**  | –         | VIN megszakítása    | SK-12D02-VG típus                            |
-| **Tápellátás**           | BAT+      | VBAT                | Li-ion cella                                 |
-|                          | 3.3 V     | 3V3                 | minden jelmodul tápja                        |
+| Function                | Device / Module       | ESP32 Pin | Notes |
+|-------------------------|------------------------|-----------|-------|
+| **Hall sensor output**  | SS49E (U3)             | GPIO34    | ADC1_CH6 (analog) |
+| **Battery voltage sense** | R1–R2 divider         | GPIO35    | ADC1_CH7 (analog), 2:1 divider |
+| **I²C SDA**             | BMP280 (U2)            | GPIO32    | I²C bus |
+| **I²C SCL**             | BMP280 (U2)            | GPIO33    | I²C bus |
+| **HX711 DATA**          | HX711 (U4)             | GPIO22    | Not a boot pin |
+| **HX711 CLOCK**         | HX711 (U4)             | GPIO27    | -
+| **SPI CS (SD card)**    | MicroSD (P1)           | GPIO5     | VSPI CS |
+| **SPI SCK**             | MicroSD (P1)           | GPIO18    | VSPI SCK |
+| **SPI MOSI**            | MicroSD (P1)           | GPIO23    | VSPI MOSI |
+| **SPI MISO**            | MicroSD (P1)           | GPIO19    | VSPI MISO |
+| **LoRa RX → ESP TX**    | WLR089U0 (U5)          | GPIO25    | UART for LoRa |
+| **LoRa TX → ESP RX**    | WLR089U0 (U5)          | GPIO26    | UART for LoRa |
+| **GPS TX → ESP RX2**    | NEO-8M (External)      | GPIO16    | UART2 RX |
+| **GPS RX → ESP TX2**    | NEO-8M (External)      | GPIO17    | UART2 TX |
+
+## Power Paths
+
+| Function | Node | Notes |
+|----------|------|--------|
+| Battery + | Bat+ | From Li-Ion cell via SK-12D02 switch |
+| Battery Sense Divider | R1 (100k) – R2 (100k) | Bat+ → R1 → ADC35 → R2 → GND |
+| 3.3 V Rail | VCC | ESP32 regulator output |
+
