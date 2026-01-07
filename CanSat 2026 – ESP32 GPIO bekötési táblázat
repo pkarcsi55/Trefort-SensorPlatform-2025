@@ -12,8 +12,8 @@
 | **HX711 CLOCK**         | HX711 (U4)             | GPIO27    | -
 | **SPI CS (SD card)**    | MicroSD (P1)           | GPIO5     | VSPI CS |
 | **SPI SCK**             | MicroSD (P1)           | GPIO18    | VSPI SCK |
-| **SPI MOSI**            | MicroSD (P1)           | GPIO23    | VSPI MOSI |
-| **SPI MISO**            | MicroSD (P1)           | GPIO19    | VSPI MISO |
+| **SPI MOSI**            | MicroSD (P1)           | GPIO19    | VSPI MOSI |
+| **SPI MISO**            | MicroSD (P1)           | GPIO23    | VSPI MISO |
 | **LoRa RX → ESP TX**    | WLR089U0 (U5)          | GPIO25    | UART for LoRa |
 | **LoRa TX → ESP RX**    | WLR089U0 (U5)          | GPIO26    | UART for LoRa |
 | **GPS TX → ESP RX2**    | NEO-8M (External)      | GPIO16    | UART2 RX |
