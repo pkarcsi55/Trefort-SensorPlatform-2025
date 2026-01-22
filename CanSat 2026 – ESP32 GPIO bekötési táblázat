@@ -1,29 +1,78 @@
-# CANSAT 2026 – ESP32 GPIO Pin Mapping
+# CANSAT 2026 – ESP32 (Wemos Lolin32 Lite) teljes pinout
 
-## Sensors and Peripherals
+> Végleges kiosztás  
+> microSD (VSPI): MOSI 19, MISO 23, SCK 18, CS 5  
+> LoRa: RFM95 (SPI, közös busz), CS 25, DIO0 26, RST 14
 
-| Function                | Device / Module       | ESP32 Pin | Notes |
-|-------------------------|------------------------|-----------|-------|
-| **Hall sensor output**  | SS49E (U3)             | GPIO34    | ADC1_CH6 (analog) |
-| **Battery voltage sense** | R1–R2 divider         | GPIO35    | ADC1_CH7 (analog), 2:1 divider |
-| **I²C SDA**             | BMP280 (U2)            | GPIO32    | I²C bus |
-| **I²C SCL**             | BMP280 (U2)            | GPIO33    | I²C bus |
-| **HX711 DATA**          | HX711 (U4)             | GPIO22    | Not a boot pin |
-| **HX711 CLOCK**         | HX711 (U4)             | GPIO27    | -
-| **SPI CS (SD card)**    | MicroSD (P1)           | GPIO5     | VSPI CS |
-| **SPI SCK**             | MicroSD (P1)           | GPIO18    | VSPI SCK |
-| **SPI MOSI**            | MicroSD (P1)           | GPIO19    | VSPI MOSI |
-| **SPI MISO**            | MicroSD (P1)           | GPIO23    | VSPI MISO |
-| **LoRa RX → ESP TX**    | WLR089U0 (U5)          | GPIO25    | UART for LoRa |
-| **LoRa TX → ESP RX**    | WLR089U0 (U5)          | GPIO26    | UART for LoRa |
-| **GPS TX → ESP RX2**    | NEO-8M (External)      | GPIO16    | UART2 RX |
-| **GPS RX → ESP TX2**    | NEO-8M (External)      | GPIO17    | UART2 TX |
+---
 
-## Power Paths
+## Pinout táblázat
 
-| Function | Node | Notes |
-|----------|------|--------|
-| Battery + | Bat+ | From Li-Ion cell via SK-12D02 switch |
-| Battery Sense Divider | R1 (100k) – R2 (100k) | Bat+ → R1 → ADC35 → R2 → GND |
-| 3.3 V Rail | VCC | ESP32 regulator output |
+| Funkció | Modul / eszköz | Jel | ESP32 GPIO | Megjegyzés |
+|------|----------------|-----|------------|------------|
+| I2C SDA | BMP280 | SDA | GPIO32 | I2C busz |
+| I2C SCL | BMP280 | SCL | GPIO33 | I2C busz |
+| HX711 adat | HX711 | DOUT | GPIO22 | digitális input |
+| HX711 óra | HX711 | SCK | GPIO27 | digitális output |
+| Hall szenzor | Hall | OUT | GPIO34 | ADC (input only) |
+| Akkufeszültség | Fesz. osztó | BAT | GPIO35 | ADC (input only) |
+| GPS TX → ESP RX2 | NEO-8M | TX | GPIO16 | UART2 RX |
+| GPS RX ← ESP TX2 | NEO-8M | RX | GPIO17 | UART2 TX |
+| microSD CS | MicroSD | CS | GPIO5 | VSPI CS |
+| microSD SCK | MicroSD | SCK | GPIO18 | VSPI SCK |
+| microSD MOSI | MicroSD | MOSI | GPIO19 | VSPI MOSI |
+| microSD MISO | MicroSD | MISO | GPIO23 | VSPI MISO |
+| LoRa SCK | RFM95 | SCK | GPIO18 | VSPI (közös) |
+| LoRa MOSI | RFM95 | MOSI | GPIO19 | VSPI (közös) |
+| LoRa MISO | RFM95 | MISO | GPIO23 | VSPI (közös) |
+| LoRa CS / NSS | RFM95 | NSS | GPIO25 | külön CS |
+| LoRa IRQ | RFM95 | DIO0 | GPIO26 | RxDone / TxDone |
+| LoRa Reset | RFM95 | RST | GPIO14 | reset |
+| Táp | minden | VCC | 3V3 | **csak 3.3 V** |
+| Föld | minden | GND | GND | közös |
 
+---
+
+## SPI busz megosztás
+
+- **Közös SPI vonalak**:  
+  - SCK = GPIO18  
+  - MOSI = GPIO19  
+  - MISO = GPIO23
+- **Külön CS vonalak**:  
+  - microSD CS = GPIO5  
+  - LoRa CS = GPIO25
+
+---
+
+## Arduino pin define blokk
+
+```cpp
+// I2C
+#define I2C_SDA 32
+#define I2C_SCL 33
+
+// HX711
+#define HX_DOUT 22
+#define HX_SCK  27
+
+// Analog inputs
+#define HALL_ADC 34
+#define BAT_ADC  35
+
+// GPS (UART2)
+#define GPS_RX2 16
+#define GPS_TX2 17
+
+// VSPI bus
+#define SPI_SCK  18
+#define SPI_MOSI 19
+#define SPI_MISO 23
+
+// microSD
+#define SD_CS 5
+
+// LoRa (RFM95)
+#define LORA_CS   25
+#define LORA_DIO0 26
+#define LORA_RST  14
