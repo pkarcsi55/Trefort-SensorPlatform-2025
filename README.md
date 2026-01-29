@@ -32,10 +32,14 @@ A rendszer alkalmas:
 - Wemos Lolin32 Lite (ESP32, 3.3V)
 
 ### **Szenzorok**
-- BMP280 – hőmérséklet + légnyomás (I²C)
+- BME280 – hőmérséklet + légnyomás (I²C)
 - SS49E – lineáris Hall-effektus szenzor (analóg)
-- (opcionális) HX711 + erőmérő cella
-- (opcionális) LoRa modul (SX1276 / WLR089U0)
+- HX711 + erőmérő cella
+- Micro SD https://www.hestore.hu/prod_10042087.html
+- LoRa modul RFM95W-868S2 https://www.hestore.hu/prod_10040543.html
+- Antenna https://www.hestore.hu/prod_10041671.html
+- Antenna csatlakozó https://www.hestore.hu/prod_10041671.html
+- Áramforrás Li-Ion akkumulátor, 18650, 3.7V, 3400mAh INR18650-35E (SAMSUNG) https://www.hestore.hu/prod_10049687.html
 
 ### **Kiegészítők**
 - 100kΩ + 100kΩ feszültségosztó az akkumulátor méréséhez
