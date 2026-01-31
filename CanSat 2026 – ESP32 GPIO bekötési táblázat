@@ -14,6 +14,7 @@
 | I2C SCL | BMP280 | SCL | GPIO33 | I2C busz |
 | HX711 adat | HX711 | DOUT | GPIO22 | digitális input |
 | HX711 óra | HX711 | SCK | GPIO27 | digitális output |
+| Külső hőmérő| Thermistor | OUT | GPIO13 | ADC (input only) |
 | Hall szenzor | Hall | OUT | GPIO34 | ADC (input only) |
 | Akkufeszültség | Fesz. osztó | BAT | GPIO35 | ADC (input only) |
 | GPS TX → ESP RX2 | NEO-8M | TX | GPIO16 | UART2 RX |
