@@ -2,78 +2,74 @@
 
 > Kód alapján ellenőrzött végleges kiosztás  
 > microSD és LoRa közös VSPI buszon működik.  
-> GPS UART2 bekötés: GPS TX → ESP32 GPIO17, GPS RX ← ESP32 GPIO16.
+> GPS UART2: GPS TX → GPIO17, GPS RX ← GPIO16
 
 ---
 
 ## Pinout táblázat
 
-| Funkció | Modul / eszköz | Jel | ESP32 GPIO | Megjegyzés |
+| Funkció | Modul | Jel | GPIO | Megjegyzés |
 |---|---|---|---|---|
-| I2C SDA | BMP280 / BME280 | SDA | GPIO32 | I2C busz |
-| I2C SCL | BMP280 / BME280 | SCL | GPIO33 | I2C busz |
-| HX711 adat | HX711 | DOUT | GPIO22 | digitális input |
-| HX711 óra | HX711 | SCK | GPIO27 | digitális output |
-| Külső hőmérő | NTC termisztor | OUT | GPIO13 | ADC bemenet |
-| Hall szenzor | Hall | OUT | GPIO34 | ADC bemenet, input only |
-| Akkufeszültség | feszültségosztó | BAT | GPIO35 | ADC bemenet, input only |
-| GPS TX → ESP RX2 | NEO-8M | TX | GPIO17 | UART2 RX |
-| GPS RX ← ESP TX2 | NEO-8M | RX | GPIO16 | UART2 TX |
-| microSD CS | MicroSD | CS | GPIO5 | VSPI CS |
-| microSD SCK | MicroSD | SCK | GPIO18 | közös VSPI SCK |
-| microSD MOSI | MicroSD | MOSI | GPIO19 | közös VSPI MOSI |
-| microSD MISO | MicroSD | MISO | GPIO23 | közös VSPI MISO |
-| LoRa SCK | RFM95 | SCK | GPIO18 | közös VSPI SCK |
-| LoRa MOSI | RFM95 | MOSI | GPIO19 | közös VSPI MOSI |
-| LoRa MISO | RFM95 | MISO | GPIO23 | közös VSPI MISO |
-| LoRa CS / NSS | RFM95 | NSS | GPIO25 | külön chip select |
-| LoRa IRQ | RFM95 | DIO0 | GPIO26 | RxDone / TxDone megszakítás |
-| LoRa Reset | RFM95 | RST | GPIO14 | LoRa modul reset |
-| Táp | minden modul | VCC | 3V3 | csak 3,3 V |
-| Föld | minden modul | GND | GND | közös föld |
+| I2C SDA | BMP280/BME280 | SDA | 32 | I2C busz |
+| I2C SCL | BMP280/BME280 | SCL | 33 | I2C busz |
+| HX711 adat | HX711 | DOUT | 22 | digitális input |
+| HX711 óra | HX711 | SCK | 27 | digitális output |
+| Külső hőmérő | NTC | OUT | 13 | ADC |
+| Hall szenzor | Hall | OUT | 34 | ADC, input only |
+| Akkufeszültség | Feszültségosztó | BAT | 35 | ADC, input only |
+| GPS TX -> ESP RX2 | NEO-8M | TX | 17 | UART2 RX |
+| GPS RX <- ESP TX2 | NEO-8M | RX | 16 | UART2 TX |
+| microSD CS | microSD | CS | 5 | VSPI CS |
+| microSD SCK | microSD | SCK | 18 | közös SPI |
+| microSD MOSI | microSD | MOSI | 19 | közös SPI |
+| microSD MISO | microSD | MISO | 23 | közös SPI |
+| LoRa SCK | RFM95 | SCK | 18 | közös SPI |
+| LoRa MOSI | RFM95 | MOSI | 19 | közös SPI |
+| LoRa MISO | RFM95 | MISO | 23 | közös SPI |
+| LoRa CS | RFM95 | NSS | 25 | chip select |
+| LoRa IRQ | RFM95 | DIO0 | 26 | RxDone / TxDone |
+| LoRa Reset | RFM95 | RST | 14 | reset |
+| Táp | minden modul | VCC | 3V3 | csak 3.3 V |
+| Föld | minden modul | GND | GND | közös |
 
 ---
 
 ## SPI busz megosztás
 
-A microSD kártya és a LoRa RFM95 modul ugyanazt a VSPI buszt használja.
+A microSD és a LoRa modul közös VSPI buszt használ.
 
-Közös SPI vonalak:
+### Közös SPI vonalak
 
-| SPI jel | ESP32 GPIO |
+| Jel | GPIO |
 |---|---|
-| SCK | GPIO18 |
-| MOSI | GPIO19 |
-| MISO | GPIO23 |
+| SCK | 18 |
+| MOSI | 19 |
+| MISO | 23 |
 
-Külön chip select vonalak:
+### Chip select vonalak
 
-| Eszköz | CS / NSS GPIO |
+| Eszköz | GPIO |
 |---|---|
-| microSD | GPIO5 |
-| LoRa RFM95 | GPIO25 |
-
-A közös SPI busz miatt egyszerre mindig csak az egyik SPI-eszköz lehet kiválasztva. Ezt a külön CS/NSS vonalak biztosítják.
+| microSD CS | 5 |
+| LoRa CS | 25 |
 
 ---
 
 ## GPS bekötés
 
-A működő kód alapján a GPS UART2 bekötése:
-
 | GPS modul | ESP32 |
 |---|---|
-| GPS TX | GPIO17, ESP32 RX2 |
-| GPS RX | GPIO16, ESP32 TX2 |
+| TX | GPIO17 (RX2) |
+| RX | GPIO16 (TX2) |
 | GND | GND |
 | VCC | 3V3 |
 
-Fontos: a soros kommunikációnál a TX és RX keresztben kapcsolódik.  
-Ezért a GPS TX lába az ESP32 RX bemenetére megy, a GPS RX lába pedig az ESP32 TX kimenetére.
+Megjegyzés:  
+A soros kommunikáció miatt a TX és RX lábak keresztben kapcsolódnak.
 
 ---
 
-## Arduino pin define blokk
+## Arduino define blokk
 
 ```cpp
 // I2C
@@ -89,12 +85,12 @@ Ezért a GPS TX lába az ESP32 RX bemenetére megy, a GPS RX lába pedig az ESP3
 #define NTC_ADC_PIN   13
 #define HALL_ADC_PIN  34
 
-// GPS (UART2)
-#define GPS_RX     17   // ESP32 RX2, ide jön a GPS TX
-#define GPS_TX     16   // ESP32 TX2, innen megy a GPS RX
+// GPS
+#define GPS_RX     17
+#define GPS_TX     16
 #define GPS_BAUD   9600
 
-// VSPI / LoRa SPI
+// SPI
 #define LORA_SCK   18
 #define LORA_MISO  23
 #define LORA_MOSI  19
@@ -102,7 +98,18 @@ Ezért a GPS TX lába az ESP32 RX bemenetére megy, a GPS RX lába pedig az ESP3
 // microSD
 #define SD_CS      5
 
-// LoRa (RFM95)
+// LoRa
 #define LORA_CS    25
 #define LORA_RST   14
 #define LORA_DIO0  26
+```
+
+---
+
+## Megjegyzések
+
+- Minden modul 3.3 V logikai szinten működik.
+- A RFM95 LoRa modul nem 5 V toleráns.
+- GPIO34 és GPIO35 csak bemenetként használható.
+- A GPS UART2 interfészen kommunikál 9600 baud sebességgel.
+- A microSD és a LoRa közös SPI buszt használ külön CS lábakkal.
