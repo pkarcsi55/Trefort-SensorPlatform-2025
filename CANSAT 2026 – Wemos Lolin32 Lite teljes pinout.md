@@ -1,6 +1,6 @@
 # CANSAT 2026 – ESP32 (Wemos Lolin32 Lite) teljes pinout
 
-> Kód alapján ellenőrzött végleges kiosztás  
+> Ellenőrzött végleges kiosztás  
 > microSD és LoRa közös VSPI buszon működik.  
 > GPS UART2 bekötés: GPS TX → ESP32 GPIO17, GPS RX ← ESP32 GPIO16.
 
