@@ -2,21 +2,21 @@
 
 > Kód alapján ellenőrzött végleges kiosztás  
 > microSD és LoRa közös VSPI buszon működik.  
-> GPS UART2: GPS TX → GPIO17, GPS RX ← GPIO16
+> GPS UART2: GPS TX -> GPIO17, GPS RX <- GPIO16
 
 ---
 
 ## Pinout táblázat
 
 | Funkció | Modul | Jel | GPIO | Megjegyzés |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | I2C SDA | BMP280/BME280 | SDA | 32 | I2C busz |
 | I2C SCL | BMP280/BME280 | SCL | 33 | I2C busz |
 | HX711 adat | HX711 | DOUT | 22 | digitális input |
 | HX711 óra | HX711 | SCK | 27 | digitális output |
-| Külső hőmérő | NTC | OUT | 13 | ADC |
-| Hall szenzor | Hall | OUT | 34 | ADC, input only |
-| Akkufeszültség | Feszültségosztó | BAT | 35 | ADC, input only |
+| Külső hőmérő | NTC | OUT | 13 | ADC bemenet |
+| Hall szenzor | Hall | OUT | 34 | ADC bemenet, input only |
+| Akkufeszültség | Feszültségosztó | BAT | 35 | ADC bemenet, input only |
 | GPS TX -> ESP RX2 | NEO-8M | TX | 17 | UART2 RX |
 | GPS RX <- ESP TX2 | NEO-8M | RX | 16 | UART2 TX |
 | microSD CS | microSD | CS | 5 | VSPI CS |
@@ -41,7 +41,7 @@ A microSD és a LoRa modul közös VSPI buszt használ.
 ### Közös SPI vonalak
 
 | Jel | GPIO |
-|---|---|
+| --- | --- |
 | SCK | 18 |
 | MOSI | 19 |
 | MISO | 23 |
@@ -49,7 +49,7 @@ A microSD és a LoRa modul közös VSPI buszt használ.
 ### Chip select vonalak
 
 | Eszköz | GPIO |
-|---|---|
+| --- | --- |
 | microSD CS | 5 |
 | LoRa CS | 25 |
 
@@ -58,13 +58,14 @@ A microSD és a LoRa modul közös VSPI buszt használ.
 ## GPS bekötés
 
 | GPS modul | ESP32 |
-|---|---|
+| --- | --- |
 | TX | GPIO17 (RX2) |
 | RX | GPIO16 (TX2) |
 | GND | GND |
 | VCC | 3V3 |
 
-Megjegyzés:  
+Megjegyzés:
+
 A soros kommunikáció miatt a TX és RX lábak keresztben kapcsolódnak.
 
 ---
@@ -103,8 +104,6 @@ A soros kommunikáció miatt a TX és RX lábak keresztben kapcsolódnak.
 #define LORA_RST   14
 #define LORA_DIO0  26
 ```
-
----
 
 ## Megjegyzések
 
