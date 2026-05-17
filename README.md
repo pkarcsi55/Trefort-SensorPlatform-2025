@@ -46,37 +46,5 @@ A rendszer alkalmas:
 - 100kΩ + 100kΩ feszültségosztó az akkumulátor méréséhez
 - LED visszajelzés mintavételkor (beépített LED, GPIO2)
 
----
 
-## 🔌 Bekötési táblázat
-
-### **BMP280 (I²C)**
-
-| BMP280 láb | ESP32 |
-|------------|--------|
-| VIN        | 3.3V   |
-| GND        | GND    |
-| SCL        | 23     |
-| SDA        | 19     |
-
-### **SS49E lineáris Hall-szenzor**
-
-| SS49E láb | ESP32 |
-|-----------|--------|
-| VCC       | 3.3V   |
-| GND       | GND    |
-| OUT       | 34 (ADC1) |
-
-### **Akkumulátor mérés (2:1 osztó)**
-
-| Feszültségosztó közepe | ESP32 |
-|------------------------|--------|
-| 100k / 100k közép pont | 35 (ADC1) |
-
-### **LED**
-- Beépített LED → **GPIO2 (aktív LOW)**
-
----
-
-## 📂 Könyvtárstruktúra (ajánlott)
 
