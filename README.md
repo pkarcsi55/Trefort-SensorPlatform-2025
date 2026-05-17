@@ -35,6 +35,7 @@ A rendszer alkalmas:
 - BME280 – hőmérséklet + légnyomás (I²C)
 - SS49E – lineáris Hall-effektus szenzor (analóg)
 - HX711 + erőmérő cella
+- MPU-6050 3 Axis Accelerometer 3 Axis analog gyro sensors 
   
 
 ### **Kiegészítők**
