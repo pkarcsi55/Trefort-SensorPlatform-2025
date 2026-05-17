@@ -45,6 +45,7 @@ A rendszer alkalmas:
 - LoRa modul RFM95W-868S2 https://www.hestore.hu/prod_10040543.html
 - Antenna https://www.hestore.hu/prod_10041671.html
 - Antenna csatlakozó https://www.hestore.hu/prod_10041671.html
+- GY-NEO8MV2 GPS Module https://www.hestore.hu/prod_10038741.html
 - Áramforrás Li-Ion akkumulátor, 18650, 3.7V, 3400mAh INR18650-35E (SAMSUNG) https://www.hestore.hu/prod_10049687.html
 - 100kΩ + 100kΩ feszültségosztó az akkumulátor méréséhez
 - LED visszajelzés mintavételkor (beépített LED, GPIO2)
